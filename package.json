@@ -1,8 +1,16 @@
 {
   "name": "num2words-ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Convert numbers to words in 50+ languages. A faithful TypeScript port of the Python num2words library, for Bun, Node, Deno, browsers and Cloudflare Workers.",
   "license": "LGPL-2.1-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polvallverdu/num2words-ts.git"
+  },
+  "homepage": "https://github.com/polvallverdu/num2words-ts#readme",
+  "bugs": {
+    "url": "https://github.com/polvallverdu/num2words-ts/issues"
+  },
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",

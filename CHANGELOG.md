@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 (2026-10-20)
+
+- `repository`, `homepage` and `bugs` in package.json. npm requires `repository` to match the
+  GitHub repository for provenance; 1.0.1 was tagged but rejected by npm for this reason and was
+  never published. 1.0.2 contains everything listed under 1.0.1.
+
 ## 1.0.1 (2026-10-20)
 
 - Top-level `main` and `types` in package.json, so npm shows the TypeScript badge and older
