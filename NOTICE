@@ -9,5 +9,5 @@ ported from.
 
 num2words-ts is not affiliated with or endorsed by the num2words authors or Savoir-faire Linux.
 
-The upstream version this release is ported from is recorded in upstream.json and in the package
-version (num2words-ts 0.5.14 is a port of num2words 0.5.14).
+The upstream version each release is ported from is recorded in upstream.json and in the
+"upstream" field of package.json.
