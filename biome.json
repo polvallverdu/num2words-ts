@@ -1,0 +1,38 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "files": { "includes": ["**", "!**/node_modules", "!**/dist", "!.upstream", "!test/fixtures"] },
+  "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
+  "linter": {
+    "rules": {
+      "recommended": true,
+      "suspicious": { "noExplicitAny": "off" },
+      "style": { "noNonNullAssertion": "off", "useNamingConvention": "off" },
+      "complexity": {
+        "noUselessConstructor": "off",
+        "noStaticOnlyClass": "off",
+        "noBannedTypes": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "node:fs": "The library must run on every runtime, including browsers and Workers.",
+                  "node:buffer": "Use Uint8Array; Buffer is Node-only."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "javascript": { "formatter": { "quoteStyle": "double", "semicolons": "always" } }
+}

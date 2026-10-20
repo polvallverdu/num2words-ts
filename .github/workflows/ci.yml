@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - run: bun install --frozen-lockfile
+
+      # The header check reads the upstream sources it names.
+      - name: Fetch upstream num2words at the pinned tag
+        run: |
+          git clone --quiet --depth 1 --branch "$(jq -r .tag upstream.json)" \
+            "$(jq -r .repo upstream.json)" "$(jq -r .path upstream.json)"
+          test "$(git -C .upstream/num2words rev-parse HEAD)" = "$(jq -r .commit upstream.json)"
+
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun test
+      - run: bun run build
+      - name: Runtime compatibility (bun, node, deno, workerd) against dist/
+        run: bun run compat
+      - name: Package contents
+        run: npm pack --dry-run

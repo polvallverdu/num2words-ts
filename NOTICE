@@ -1,0 +1,13 @@
+num2words-ts is a TypeScript port of num2words (https://github.com/savoirfairelinux/num2words),
+the Python library that converts numbers to words in many languages.
+
+num2words is Copyright (c) 2003, Taro Ogawa, and Copyright (c) 2013, Savoir-faire Linux inc.,
+and is distributed under the GNU Lesser General Public License, version 2.1 or (at your option)
+any later version. This port is a derivative work and is distributed under the same license; see
+LICENSE. Every ported source file keeps the upstream copyright notices and names the file it was
+ported from.
+
+num2words-ts is not affiliated with or endorsed by the num2words authors or Savoir-faire Linux.
+
+The upstream version this release is ported from is recorded in upstream.json and in the package
+version (num2words-ts 0.5.14 is a port of num2words 0.5.14).

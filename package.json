@@ -1,0 +1,55 @@
+{
+  "name": "num2words-ts",
+  "version": "0.5.14",
+  "description": "Convert numbers to words in 50+ languages. A faithful TypeScript port of the Python num2words library, for Bun, Node, Deno, browsers and Cloudflare Workers.",
+  "license": "LGPL-2.1-or-later",
+  "type": "module",
+  "sideEffects": false,
+  "keywords": [
+    "num2words",
+    "number to words",
+    "numbers",
+    "words",
+    "i18n",
+    "tts",
+    "cardinal",
+    "ordinal",
+    "currency"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./lang/*": {
+      "types": "./dist/lang/*.d.ts",
+      "default": "./dist/lang/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "NOTICE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "bun test",
+    "lint": "biome check . && bun tools/check-headers.ts",
+    "format": "biome format --write .",
+    "fixtures": "python3 -I tools/gen_fixtures.py",
+    "compat": "bun tools/compat.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@types/bun": "1.4.3",
+    "typescript": "7.0.2",
+    "workerd": "1.20261005.1"
+  }
+}

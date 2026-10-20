@@ -1,0 +1,65 @@
+name: Release
+
+# Publishes to npm when a GitHub release is published (tag vX.Y.Z matching
+# package.json). Uses npm trusted publishing (OIDC): no NPM_TOKEN secret.
+# One-time setup on npmjs.com: package settings → Trusted publisher → GitHub
+# Actions, with this repository and the workflow file name `release.yml`.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Build and pack without publishing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write # required for npm trusted publishing and provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      # Trusted publishing needs npm >= 11.5.1.
+      - run: npm install -g npm@12.2.0
+
+      - run: bun install --frozen-lockfile
+      - name: Fetch upstream num2words at the pinned tag
+        run: |
+          git clone --quiet --depth 1 --branch "$(jq -r .tag upstream.json)" \
+            "$(jq -r .repo upstream.json)" "$(jq -r .path upstream.json)"
+
+      - name: Check the tag matches package.json
+        if: github.event_name == 'release'
+        run: |
+          version="$(jq -r .version package.json)"
+          test "${GITHUB_REF_NAME}" = "v${version}" || {
+            echo "release tag ${GITHUB_REF_NAME} does not match package.json version ${version}"; exit 1; }
+
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun test
+      - run: bun run build
+      - run: bun run compat
+
+      - name: Publish to npm
+        if: github.event_name == 'release' || inputs.dry-run == false
+        run: npm publish --provenance --access public
+      - name: Dry run
+        if: github.event_name == 'workflow_dispatch' && inputs.dry-run == true
+        run: npm publish --provenance --access public --dry-run
