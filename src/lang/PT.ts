@@ -6,6 +6,7 @@
 // Ported from num2words: num2words/lang_PT.py
 
 import type { CurrencyForm, CurrencyForms, CurrencyOptions, WordPair } from "../base.ts";
+import { checkKwargs as sharedCheckKwargs } from "../internal/kwargs.ts";
 import { abs, cmp, getItem, int, type PyNum, str } from "../py.ts";
 import { Num2Word_EU } from "./EU.ts";
 
@@ -19,12 +20,12 @@ export const W = "[\\p{L}\\p{N}_]";
  * Python raises TypeError when a method gets a keyword argument its signature
  * does not declare (e.g. `num2words(1, lang="pt", gender="f")`).
  */
+/**
+ * Kept for API compatibility (lang/PT exported it in 1.0, with `fn` first);
+ * delegates to the shared checker.
+ */
 export function checkKwargs(fn: string, options: object | undefined, allowed: string[] = []): void {
-  for (const key of Object.keys(options ?? {})) {
-    if (!allowed.includes(key)) {
-      throw new TypeError(`${fn}() got an unexpected keyword argument '${key}'`);
-    }
-  }
+  sharedCheckKwargs(options, allowed, fn);
 }
 
 export interface YearOptions {

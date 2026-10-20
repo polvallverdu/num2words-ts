@@ -11,6 +11,7 @@ import {
   type CurrencyOptions,
   Num2Word_Base,
 } from "../base.ts";
+import { checkKwargs } from "../internal/kwargs.ts";
 import { abs, at, Decimal, getItem, int, mod, type PyNum, str, ValueError } from "../py.ts";
 import { getDigits, splitbyx } from "../utils.ts";
 
@@ -78,13 +79,6 @@ function truthy(x: unknown): boolean {
 }
 
 /** Python's TypeError for a keyword argument the method does not take. */
-function checkKwargs(options: object, allowed: readonly string[], fn: string): void {
-  for (const key of Object.keys(options)) {
-    if (!allowed.includes(key)) {
-      throw new TypeError(`${fn}() got an unexpected keyword argument '${key}'`);
-    }
-  }
-}
 const RU_KWARGS = ["case", "plural", "gender", "animate"] as const;
 const CURRENCY_KWARGS = ["currency", "cents", "separator", "adjective"] as const;
 

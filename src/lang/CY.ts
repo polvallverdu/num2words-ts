@@ -6,6 +6,7 @@
 
 import type { CurrencyForm, CurrencyForms, CurrencyOptions } from "../base.ts";
 import { parseCurrencyParts } from "../currency.ts";
+import { checkKwargs } from "../internal/kwargs.ts";
 import {
   AttributeError,
   at,
@@ -517,14 +518,6 @@ function lookup<V>(d: Readonly<Record<string, V>>, key: PyNum): V {
  * Python raises TypeError when a method gets a keyword argument its signature
  * does not declare (e.g. `num2words(1, lang="cy", ordinal=True, counted="ci")`).
  */
-function checkKwargs(fn: string, options: object | undefined, allowed: string[]): void {
-  for (const key of Object.keys(options ?? {})) {
-    if (!allowed.includes(key)) {
-      throw new TypeError(`${fn}() got an unexpected keyword argument '${key}'`);
-    }
-  }
-}
-
 export interface CardinalOptions {
   informal?: boolean;
   gender?: string;
@@ -686,7 +679,7 @@ export class Num2Word_CY extends Num2Word_EU {
   }
 
   override toOrdinal(number: PyNum, options: OrdinalOptions = {}): string {
-    checkKwargs("to_ordinal", options, ["informal", "gender"]);
+    checkKwargs(options, ["informal", "gender"], "to_ordinal");
     const gender = options.gender ?? "masc";
     if (cmp(number, 20n) < 0) {
       return makestring(lookup(ORDINAL_WORDS, number));
@@ -701,7 +694,7 @@ export class Num2Word_CY extends Num2Word_EU {
   }
 
   override toCardinal(number: PyNum, options: CardinalOptions = {}): string {
-    checkKwargs("to_cardinal", options, ["informal", "gender", "ordinal", "counted", "raw"]);
+    checkKwargs(options, ["informal", "gender", "ordinal", "counted", "raw"], "to_cardinal");
     return this._toCardinal(number, options) as string;
   }
 
@@ -796,7 +789,7 @@ export class Num2Word_CY extends Num2Word_EU {
    * @returns Formatted string
    */
   override toCurrency(val: PyNum | string, options: CurrencyOptions = {}): string {
-    checkKwargs("to_currency", options, ["currency", "cents", "separator", "adjective"]);
+    checkKwargs(options, ["currency", "cents", "separator", "adjective"], "to_currency");
     const currency = options.currency ?? "EUR";
     const cents = options.cents ?? true;
     const separator = options.separator ?? ",";

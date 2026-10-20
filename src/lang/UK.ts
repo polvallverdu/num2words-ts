@@ -19,7 +19,7 @@ import {
   toDecimalExact,
   ValueError,
 } from "../py.ts";
-import { getDigits, splitbyx } from "../utils.ts";
+import { getDigits, splitbyxStrictList } from "../utils.ts";
 
 const ZERO = ["нуль"] as const;
 const ONES_FEMININE: Record<string, readonly string[]> = {
@@ -328,10 +328,6 @@ export interface CardinalOptions {
 }
 
 /** Python `list(splitbyx(s, 3))`, with Python's `int()` on each group. */
-function chunksOf3(s: string): bigint[] {
-  return [...splitbyx(s, 3, false)].map((x) => int(x));
-}
-
 export class Num2Word_UK extends Num2Word_Base {
   static override CURRENCY_FORMS: Record<string, CurrencyForms> = {
     AED: [
@@ -884,7 +880,7 @@ export class Num2Word_UK extends Num2Word_Base {
     }
 
     const words: string[] = [];
-    const chunks = chunksOf3(str(n));
+    const chunks = splitbyxStrictList(str(n), 3);
     let i = chunks.length;
     for (const x of chunks) {
       i -= 1;
@@ -987,7 +983,7 @@ export class Num2Word_UK extends Num2Word_Base {
     this.verifyOrdinal(number);
 
     const words: string[] = [];
-    const fragments = chunksOf3(str(number));
+    const fragments = splitbyxStrictList(str(number), 3);
     let level = 0;
     let last = at(fragments, -1);
     while (last === 0n) {

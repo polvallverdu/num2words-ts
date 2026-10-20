@@ -6,8 +6,12 @@
 // Ported from num2words: num2words/lang_ES.py
 
 import type { CurrencyForm, CurrencyForms, CurrencyOptions, WordPair } from "../base.ts";
+import { checkKwargs } from "../internal/kwargs.ts";
 import { at, cmp, divmod, eq, getItem, int, mod, type PyNum, RecursionError, str } from "../py.ts";
 import { Num2Word_EU } from "./EU.ts";
+
+// Re-exported for API compatibility: lang/ES exported its own copy in 1.0.
+export { checkKwargs };
 
 /** Python's default recursion limit, for to_ordinal's unbounded recursion. */
 const RECURSION_LIMIT = 1000;
@@ -49,14 +53,6 @@ export const CENTS_UNA: readonly string[] = ["EGP", "JOD", "LBP", "SDG", "SSP", 
  * Python raises TypeError for a keyword argument the method does not take.
  * `num2words()` forwards every option, so the converters check them here.
  */
-export function checkKwargs(options: object, allowed: readonly string[], fn: string): void {
-  for (const key of Object.keys(options)) {
-    if (!allowed.includes(key)) {
-      throw new TypeError(`${fn}() got an unexpected keyword argument '${key}'`);
-    }
-  }
-}
-
 export class Num2Word_ES extends Num2Word_EU {
   static override CURRENCY_FORMS: Record<string, CurrencyForms> = {
     EUR: [

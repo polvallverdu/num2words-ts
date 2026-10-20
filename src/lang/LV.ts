@@ -7,7 +7,7 @@
 
 import { type CurrencyForm, type CurrencyForms, Num2Word_Base } from "../base.ts";
 import { at, getItem, int, mod, NotImplementedError, type PyNum, str, ValueError } from "../py.ts";
-import { getDigits, splitbyx } from "../utils.ts";
+import { getDigits, splitbyxStrictList } from "../utils.ts";
 
 const ZERO = ["nulle"] as const;
 
@@ -69,10 +69,6 @@ const GENERIC_KRONA: CurrencyForm = ["krona", "kronas", "kronu"];
 const GENERIC_ERA: CurrencyForm = ["ēre", "ēras", "ēru"];
 
 /** Python `list(splitbyx(s, 3))`, with Python's `int()` on each group. */
-function chunksOf3(s: string): bigint[] {
-  return [...splitbyx(s, 3, false)].map((x) => int(x));
-}
-
 /**
  * Sadly we have a legal form (used in legal and finance documents):
  * http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
@@ -159,7 +155,7 @@ export class Num2Word_LV extends Num2Word_Base {
     }
 
     const words: string[] = [];
-    const chunks = chunksOf3(n.toString());
+    const chunks = splitbyxStrictList(n.toString(), 3);
     let i = chunks.length;
     for (const x of chunks) {
       i -= 1;

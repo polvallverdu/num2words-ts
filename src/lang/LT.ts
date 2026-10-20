@@ -7,7 +7,7 @@
 
 import { type CurrencyForm, type CurrencyForms, Num2Word_Base } from "../base.ts";
 import { at, getItem, int, NotImplementedError, type PyNum, str, ValueError } from "../py.ts";
-import { getDigits, splitbyx } from "../utils.ts";
+import { getDigits, splitbyxStrictList } from "../utils.ts";
 
 const ZERO = ["nulis"] as const;
 
@@ -77,10 +77,6 @@ const THOUSANDS: Record<string, CurrencyForm> = {
 const GENERIC_CENTS: CurrencyForm = ["centas", "centai", "centų"];
 
 /** Python `list(splitbyx(s, 3))`, with Python's `int()` on each group. */
-function chunksOf3(s: string): bigint[] {
-  return [...splitbyx(s, 3, false)].map((x) => int(x));
-}
-
 export class Num2Word_LT extends Num2Word_Base {
   static override CURRENCY_FORMS: Record<string, CurrencyForms> = {
     LTL: [["litas", "litai", "litų"], GENERIC_CENTS],
@@ -145,7 +141,7 @@ export class Num2Word_LT extends Num2Word_Base {
     }
 
     const words: string[] = [];
-    const chunks = chunksOf3(n.toString());
+    const chunks = splitbyxStrictList(n.toString(), 3);
     let i = chunks.length;
 
     for (const x of chunks) {

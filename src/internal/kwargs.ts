@@ -11,12 +11,11 @@
  * `allowed`. `options === undefined` (no options passed) is accepted.
  */
 export function checkKwargs(
-  options: object | undefined,
+  options: object | null | undefined,
   allowed: readonly string[],
   fn: string,
 ): void {
-  if (options === undefined) return;
-  for (const key of Object.keys(options)) {
+  for (const key of Object.keys(options ?? {})) {
     if (!allowed.includes(key)) {
       throw new TypeError(`${fn}() got an unexpected keyword argument '${key}'`);
     }
