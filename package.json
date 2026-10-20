@@ -64,7 +64,7 @@
     "@biomejs/biome": "2.5.15",
     "@types/bun": "1.4.3",
     "typescript": "7.0.2",
-    "workerd": "1.20261005.1"
+    "workerd": "1.20261016.1"
   },
   "upstream": {
     "num2words": "0.5.14",
