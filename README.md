@@ -81,6 +81,14 @@ The language table is upstream's: `am`, `ar`, `az`, `be`, `bn`, `ca`, `ce`, `cs`
 After an upstream bump, regenerate the corpus and the option table with `bun run fixtures` and
 `bun run kwargs` (both run the Python library; needs Python 3).
 
+## Differences from upstream
+
+One, on purpose: when a call raises, upstream can leave a shared converter in a modified state, so
+later calls in the same process return different words (after a failed Romanian currency call,
+`num2words(100, lang="ro")` says "una sută" instead of "o sută"). The port restores that state
+(Romanian and Portuguese currency, Danish and Slovenian ordinals), so a failed call never changes a
+later result. Every successful call returns exactly what upstream returns; the tests check both.
+
 ## Versioning
 
 `num2words-ts` has its own semver. The num2words release it ports is recorded in `package.json`

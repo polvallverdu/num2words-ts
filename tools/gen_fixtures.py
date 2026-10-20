@@ -144,6 +144,11 @@ def main():
                 cases.append(run(lang, v, "currency", {"currency": code, "cents": False}))
                 cases.append(run(lang, v, "currency", {"currency": code, "adjective": True}))
                 cases.append(run(lang, v, "currency", {"currency": code, "separator": " and"}))
+        # Last, so its side effects cannot reach the other recorded cases: a
+        # call that raises inside the converter. Replayed first in reverse
+        # order, it catches state a failing call leaves behind.
+        cases.append(run(lang, 1, "currency", {"currency": "XXX"}))
+        cases.append(run(lang, 1.5, "currency", {"currency": "XXX"}))
         with open(os.path.join(OUT, f"{lang}.json"), "w", encoding="utf-8") as f:
             json.dump(cases, f, ensure_ascii=False, separators=(",", ":"))
         index[lang] = {"class": type(conv).__name__, "cases": len(cases),

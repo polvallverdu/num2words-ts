@@ -3,282 +3,282 @@
   "languages": {
     "am": {
       "class": "Num2Word_AM",
-      "cases": 960,
+      "cases": 962,
       "skipped": 115
     },
     "ar": {
       "class": "Num2Word_AR",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "az": {
       "class": "Num2Word_AZ",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "be": {
       "class": "Num2Word_BE",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "bn": {
       "class": "Num2Word_BN",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "ca": {
       "class": "Num2Word_CA",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "ce": {
       "class": "Num2Word_CE",
-      "cases": 1101,
+      "cases": 1103,
       "skipped": 0
     },
     "cs": {
       "class": "Num2Word_CS",
-      "cases": 1007,
+      "cases": 1009,
       "skipped": 0
     },
     "cy": {
       "class": "Num2Word_CY",
-      "cases": 1101,
+      "cases": 1103,
       "skipped": 0
     },
     "da": {
       "class": "Num2Word_DA",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "de": {
       "class": "Num2Word_DE",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "en": {
       "class": "Num2Word_EN",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "en_IN": {
       "class": "Num2Word_EN_IN",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "en_NG": {
       "class": "Num2Word_EN_NG",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "eo": {
       "class": "Num2Word_EO",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "es": {
       "class": "Num2Word_ES",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "es_CO": {
       "class": "Num2Word_ES_CO",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "es_CR": {
       "class": "Num2Word_ES_CR",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "es_GT": {
       "class": "Num2Word_ES_GT",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "es_NI": {
       "class": "Num2Word_ES_NI",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "es_VE": {
       "class": "Num2Word_ES_VE",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "fa": {
       "class": "Num2Word_FA",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "fi": {
       "class": "Num2Word_FI",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "fr": {
       "class": "Num2Word_FR",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "fr_BE": {
       "class": "Num2Word_FR_BE",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "fr_CH": {
       "class": "Num2Word_FR_CH",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "fr_DZ": {
       "class": "Num2Word_FR_DZ",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "he": {
       "class": "Num2Word_HE",
-      "cases": 1054,
+      "cases": 1056,
       "skipped": 0
     },
     "hu": {
       "class": "Num2Word_HU",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "id": {
       "class": "Num2Word_ID",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "is": {
       "class": "Num2Word_IS",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "it": {
       "class": "Num2Word_IT",
-      "cases": 1101,
+      "cases": 1103,
       "skipped": 0
     },
     "ja": {
       "class": "Num2Word_JA",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "kn": {
       "class": "Num2Word_KN",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "ko": {
       "class": "Num2Word_KO",
-      "cases": 1054,
+      "cases": 1056,
       "skipped": 0
     },
     "kz": {
       "class": "Num2Word_KZ",
-      "cases": 1007,
+      "cases": 1009,
       "skipped": 0
     },
     "lt": {
       "class": "Num2Word_LT",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "lv": {
       "class": "Num2Word_LV",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "nl": {
       "class": "Num2Word_NL",
-      "cases": 1101,
+      "cases": 1103,
       "skipped": 0
     },
     "no": {
       "class": "Num2Word_NO",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "pl": {
       "class": "Num2Word_PL",
-      "cases": 1054,
+      "cases": 1056,
       "skipped": 0
     },
     "pt": {
       "class": "Num2Word_PT",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "pt_BR": {
       "class": "Num2Word_PT_BR",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "ro": {
       "class": "Num2Word_RO",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "ru": {
       "class": "Num2Word_RU",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "sk": {
       "class": "Num2Word_SK",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "sl": {
       "class": "Num2Word_SL",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "sr": {
       "class": "Num2Word_SR",
-      "cases": 1054,
+      "cases": 1056,
       "skipped": 0
     },
     "sv": {
       "class": "Num2Word_SV",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "te": {
       "class": "Num2Word_TE",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "tet": {
       "class": "Num2Word_TET",
-      "cases": 1148,
+      "cases": 1150,
       "skipped": 0
     },
     "tg": {
       "class": "Num2Word_TG",
-      "cases": 1101,
+      "cases": 1103,
       "skipped": 0
     },
     "th": {
       "class": "Num2Word_TH",
-      "cases": 1054,
+      "cases": 1056,
       "skipped": 0
     },
     "tr": {
       "class": "Num2Word_TR",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     },
     "uk": {
       "class": "Num2Word_UK",
-      "cases": 1195,
+      "cases": 1197,
       "skipped": 0
     },
     "vi": {
       "class": "Num2Word_VI",
-      "cases": 960,
+      "cases": 962,
       "skipped": 0
     }
   }

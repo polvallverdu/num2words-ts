@@ -141,10 +141,15 @@ export class Num2Word_DA extends Num2Word_EU {
   override toOrdinal(value: PyNum, options: object = {}): string {
     checkKwargs(options, [], "to_ordinal");
     this.verifyOrdinal(value);
-    // Like upstream, ordflag stays set if to_cardinal raises.
+    // DIVERGENCE: restored in `finally`; upstream leaves it set when the call raises, which corrupts
+    // later calls on this shared converter. Output of successful calls is unchanged.
     this.ordflag = true;
-    let outword = this.toCardinal(value);
-    this.ordflag = false;
+    let outword: string;
+    try {
+      outword = this.toCardinal(value);
+    } finally {
+      this.ordflag = false;
+    }
     for (const key of Object.keys(this.ords)) {
       if (outword.endsWith(key)) {
         outword = outword.slice(0, outword.length - key.length) + this.ords[key];

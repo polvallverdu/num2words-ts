@@ -191,14 +191,20 @@ export class Num2Word_RO extends Num2Word_EU {
     const separator = options.separator ?? " și";
     const adjective = options.adjective ?? false;
     // romanian currency has a particularity for numeral: one
+    // DIVERGENCE: restored in `finally`; upstream leaves it set when the call raises, which corrupts
+    // later calls on this shared converter. Output of successful calls is unchanged.
     this.genNumwords[1] = "una";
-    const result = super.toCurrency(roundCents(val as PyNum), {
-      currency,
-      cents: true,
-      separator,
-      adjective,
-    });
-    this.genNumwords[1] = "o"; // revert numeral
+    let result: string;
+    try {
+      result = super.toCurrency(roundCents(val as PyNum), {
+        currency,
+        cents: true,
+        separator,
+        adjective,
+      });
+    } finally {
+      this.genNumwords[1] = "o"; // revert numeral
+    }
     return result
       .replaceAll("unu leu", "un leu")
       .replaceAll("unu ban", "un ban")

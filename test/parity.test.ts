@@ -57,8 +57,7 @@ describe("parity with Python num2words", () => {
       test.todo(`${lang} (not ported yet)`);
       continue;
     }
-    test(lang, () => {
-      const cases: Case[] = JSON.parse(readFileSync(new URL(`${lang}.json`, dir), "utf8"));
+    const run = (cases: Case[]) => {
       const mismatches: string[] = [];
       for (const c of cases) {
         if ("skip" in c) continue;
@@ -81,6 +80,40 @@ describe("parity with Python num2words", () => {
         );
       }
       expect(mismatches.length).toBe(0);
+    };
+    const load = (): Case[] => JSON.parse(readFileSync(new URL(`${lang}.json`, dir), "utf8"));
+    test(lang, () => run(load()));
+    // Converters are shared singletons: a call that raises must not change
+    // what later calls return. After each failing call, replay a sample of
+    // successful cases (every conversion type) and require upstream's output.
+    test(`${lang} (unchanged after errors)`, () => {
+      const cases = load();
+      const ok = cases.filter((c) => c.error === undefined && !("skip" in c));
+      const step = Math.max(1, Math.floor(ok.length / 60));
+      const probes = ok.filter((_, i) => i % step === 0);
+      const leaks: string[] = [];
+      for (const c of cases) {
+        if (c.error === undefined) continue;
+        try {
+          num2words(decode(c.input), { lang, to: c.to as never, ...camel(c.kwargs) });
+        } catch {}
+        for (const p of probes) {
+          let got: string;
+          try {
+            got = num2words(decode(p.input), { lang, to: p.to as never, ...camel(p.kwargs) });
+          } catch (e) {
+            got = `!${(e as Error).name}`;
+          }
+          if (got !== p.out) {
+            leaks.push(
+              `after ${c.to}(${c.input.value} ${JSON.stringify(c.kwargs)}): ${p.to}(${p.input.value}) want ${JSON.stringify(p.out)} got ${JSON.stringify(got)}`,
+            );
+            break;
+          }
+        }
+        if (leaks.length >= 10) break;
+      }
+      if (leaks.length) throw new Error(`failing calls changed later output:\n${leaks.join("\n")}`);
     });
   }
 });

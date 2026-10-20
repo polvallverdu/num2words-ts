@@ -279,12 +279,17 @@ export class Num2Word_PT extends Num2Word_EU {
     const separator = options.separator ?? " e";
     const adjective = options.adjective ?? false;
     // change negword because base.to_currency() does not need space after
-    // (upstream does not restore it when to_currency raises)
+    // DIVERGENCE: restored in `finally`; upstream leaves it set when the call raises, which corrupts
+    // later calls on this shared converter. Output of successful calls is unchanged.
     const backupNegword = this.negword;
     this.negword = this.negword.slice(0, -1);
-    let result = super.toCurrency(val, { currency, cents, separator, adjective });
-    // undo the change on negword
-    this.negword = backupNegword;
+    let result: string;
+    try {
+      result = super.toCurrency(val, { currency, cents, separator, adjective });
+    } finally {
+      // undo the change on negword
+      this.negword = backupNegword;
+    }
 
     // transforms "milhões euros" em "milhões de euros"
     const [cr1] = getItem(this.cls.CURRENCY_FORMS, currency);
