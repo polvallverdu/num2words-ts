@@ -25,7 +25,7 @@ for await (const file of new Glob("{src,test,tools}/**/*.ts").scan(".")) {
       problems.push(`upstream file ${ported} not found`);
     } else {
       const copyrights = (await upstream.text())
-        .split("\n")
+        .split(/\r?\n/)
         .filter((l) => /^#\s*Copyright/.test(l))
         .map((l) => `// ${l.replace(/^#\s*/, "")}`);
       for (const line of copyrights) {
