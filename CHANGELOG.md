@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 (2026-10-20)
+
+- Top-level `main` and `types` in package.json, so npm shows the TypeScript badge and older
+  tooling that ignores `exports` finds the entry point and its types.
+- First release published from GitHub Actions with npm trusted publishing and provenance.
+
 ## 1.0.0 (2026-10-20)
 
 - First release: a TypeScript port of num2words 0.5.14 (all 56 language codes).
