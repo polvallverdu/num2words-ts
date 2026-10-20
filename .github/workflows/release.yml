@@ -51,6 +51,14 @@ jobs:
           test "${GITHUB_REF_NAME}" = "v${version}" || {
             echo "release tag ${GITHUB_REF_NAME} does not match package.json version ${version}"; exit 1; }
 
+      - name: Check package.json repository matches this repository (required for provenance)
+        run: |
+          url="$(jq -r '.repository.url // .repository // ""' package.json)"
+          case "$url" in
+            *"github.com/${GITHUB_REPOSITORY}"|*"github.com/${GITHUB_REPOSITORY}.git") ;;
+            *) echo "package.json repository is '${url}', expected github.com/${GITHUB_REPOSITORY}"; exit 1 ;;
+          esac
+
       - run: bun run typecheck
       - run: bun run lint
       - run: bun test
