@@ -336,9 +336,9 @@ export class Num2Word_Base {
   }
 
   // Trivial version
-  inflect(value: bigint, text: string): string {
+  inflect(value: PyNum, text: string): string {
     const parts = text.split("/");
-    if (value === 1n) return parts[0] as string;
+    if (eq(value, 1n)) return parts[0] as string;
     return parts.join("");
   }
 
@@ -352,20 +352,25 @@ export class Num2Word_Base {
     const cents = options.cents ?? true;
     const out: string[] = [];
 
-    let high: bigint;
-    let low: bigint;
+    // Python keeps the operand's type through divmod: a Decimal with a
+    // fraction keeps it in `low` (e.g. Decimal("150.5") with divisor 1).
+    let high: PyNum;
+    let low: PyNum;
     if (typeof val === "number") {
       [high, low] = this.float2tuple(val);
     } else if (Array.isArray(val)) {
       [high, low] = val;
+    } else if (val instanceof Decimal) {
+      [high, low] = val.divmod(divisor);
     } else {
-      [high, low] = divmod(int(val), divisor);
+      [high, low] = divmod(val, divisor);
     }
+    const truthy = (x: PyNum) => !eq(x, 0n);
 
-    if (high) {
+    if (truthy(high)) {
       hightxt = this.title(this.inflect(high, hightxt));
       out.push(this.toCardinal(high));
-      if (low) {
+      if (truthy(low)) {
         if (longval) {
           if (hightxt) out.push(hightxt);
           if (jointxt) out.push(this.title(jointxt));
@@ -375,11 +380,11 @@ export class Num2Word_Base {
       }
     }
 
-    if (low) {
+    if (truthy(low)) {
       if (cents) {
         out.push(this.toCardinal(low));
       } else {
-        out.push(zeroPad(low, 2));
+        out.push(zeroPad(int(low), 2));
       }
       if (lowtxt && longval) {
         out.push(this.title(this.inflect(low, lowtxt)));

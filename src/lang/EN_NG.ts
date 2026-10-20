@@ -5,10 +5,36 @@
 //
 // Ported from num2words: num2words/lang_EN_NG.py
 
-import { Num2Word_Base } from "../base.ts";
+import type { CurrencyForms } from "../base.ts";
+import { checkKwargs } from "../internal/kwargs.ts";
+import type { PyNum } from "../py.ts";
+import { Num2Word_EN } from "./EN.ts";
 
-// PORTING: stub. Replace this whole class with the port of num2words/lang_EN_NG.py
-// (keep the exported name Num2Word_EN_NG) and delete the STUB flag.
-export class Num2Word_EN_NG extends Num2Word_Base {
-  static STUB = true;
+/** Options of `Num2Word_EN_NG.toCurrency` (`kobo` instead of `cents`). */
+export interface CurrencyOptions_EN_NG {
+  currency?: string;
+  kobo?: boolean;
+  separator?: string;
+  adjective?: boolean;
+}
+
+export class Num2Word_EN_NG extends Num2Word_EN {
+  static override CURRENCY_FORMS: Record<string, CurrencyForms> = {
+    NGN: [
+      ["naira", "naira"],
+      ["kobo", "kobo"],
+    ],
+  };
+
+  static override CURRENCY_ADJECTIVES: Record<string, string> = { NGN: "Nigerian" };
+
+  override toCurrency(val: PyNum | string, options: CurrencyOptions_EN_NG = {}): string {
+    checkKwargs(options, ["currency", "kobo", "separator", "adjective"], "to_currency");
+    const currency = options.currency ?? "NGN";
+    const kobo = options.kobo ?? true;
+    const separator = options.separator ?? ",";
+    const adjective = options.adjective ?? false;
+    const result = super.toCurrency(val, { currency, cents: kobo, separator, adjective });
+    return result;
+  }
 }

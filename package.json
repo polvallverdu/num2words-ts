@@ -27,12 +27,15 @@
     },
     "./package.json": "./package.json"
   },
+  "bin": {
+    "num2words-ts": "./dist/cli.js"
+  },
   "files": [
     "dist",
-    "src",
     "LICENSE",
     "NOTICE",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
@@ -41,7 +44,8 @@
     "lint": "biome check . && bun tools/check-headers.ts",
     "format": "biome format --write .",
     "fixtures": "python3 -I tools/gen_fixtures.py",
-    "compat": "bun tools/compat.ts"
+    "compat": "bun tools/compat.ts",
+    "kwargs": "python3 -I tools/gen_kwargs.py"
   },
   "engines": {
     "node": ">=20"

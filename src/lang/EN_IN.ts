@@ -5,10 +5,11 @@
 //
 // Ported from num2words: num2words/lang_EN_IN.py
 
-import { Num2Word_Base } from "../base.ts";
+import { Num2Word_EN } from "./EN.ts";
 
-// PORTING: stub. Replace this whole class with the port of num2words/lang_EN_IN.py
-// (keep the exported name Num2Word_EN_IN) and delete the STUB flag.
-export class Num2Word_EN_IN extends Num2Word_Base {
-  static STUB = true;
+export class Num2Word_EN_IN extends Num2Word_EN {
+  override setHighNumwords(_high: string[]): void {
+    this.cards.set(10n ** 7n, "crore");
+    this.cards.set(10n ** 5n, "lakh");
+  }
 }

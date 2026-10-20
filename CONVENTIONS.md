@@ -23,6 +23,8 @@ Reference files, hand-ported first: `src/py.ts` (Python semantics), `src/base.ts
 
 `num2words()` passes its options to the converter method as one object, so every `to_*` method
 takes `(value, options = {})` and destructures what it uses, with upstream's defaults (`??`).
+`num2words()` first rejects options the Python method doesn't accept (TypeError), using
+`src/kwargs.ts`, which `bun run kwargs` generates from upstream's signatures.
 
 ## Header (license)
 

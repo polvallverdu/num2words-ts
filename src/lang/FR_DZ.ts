@@ -5,10 +5,26 @@
 //
 // Ported from num2words: num2words/lang_FR_DZ.py
 
-import { Num2Word_Base } from "../base.ts";
+import { type CurrencyForms, type CurrencyOptions, Num2Word_Base } from "../base.ts";
+import type { PyNum } from "../py.ts";
+import { Num2Word_FR } from "./FR.ts";
 
-// PORTING: stub. Replace this whole class with the port of num2words/lang_FR_DZ.py
-// (keep the exported name Num2Word_FR_DZ) and delete the STUB flag.
-export class Num2Word_FR_DZ extends Num2Word_Base {
-  static STUB = true;
+export class Num2Word_FR_DZ extends Num2Word_FR {
+  static override CURRENCY_FORMS: Record<string, CurrencyForms> = {
+    DIN: [
+      ["dinard", "dinards"],
+      ["centime", "centimes"],
+    ],
+  };
+
+  override toCurrency(val: PyNum | string, options: CurrencyOptions = {}): string {
+    // super(Num2Word_FR, self).to_currency: skips Num2Word_FR's override.
+    const result = Num2Word_Base.prototype.toCurrency.call(this, val, {
+      currency: options.currency ?? "DIN",
+      cents: options.cents ?? true,
+      separator: options.separator ?? " et",
+      adjective: options.adjective ?? false,
+    });
+    return result;
+  }
 }

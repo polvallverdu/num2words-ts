@@ -63,7 +63,8 @@ def years():
 def currency_values():
     return [0, 1, 2, 99, 100, 101, 150, 1000, 123456, -100, -1, 0.0, 0.01, 0.5,
             1.0, 1.01, 1.5, 2.0, 10.25, 21.21, 100.0, 1234.56, 1000000.0, -1.5,
-            -0.01, 0.005, 1.005, Decimal("1.00"), Decimal("12.34")]
+            -0.01, 0.005, 1.005, Decimal("1.00"), Decimal("12.34"), Decimal("150.5"),
+            Decimal("0.25"), Decimal("1000000.01"), Decimal("-7.5"), "3.50", "1234.5"]
 
 
 def encode(v):
@@ -96,7 +97,11 @@ def run(lang, value, to, kwargs):
     entry = {"input": encode(value), "to": to, "kwargs": kwargs}
     signal.setitimer(signal.ITIMER_REAL, TIMEOUT_SECS)
     try:
-        entry["out"] = num2words.num2words(value, lang=lang, to=to, **kwargs)
+        out = num2words.num2words(value, lang=lang, to=to, **kwargs)
+        # Non-str results (Base.to_ordinal_num returns the int itself, VI can
+        # return None) are recorded as str(out): lossless for big ints, and
+        # what the port's num2words() returns.
+        entry["out"] = out if isinstance(out, str) else str(out)
     except CaseTimeout:
         # Upstream takes pathologically long (or never finishes) on this input;
         # the port is not asked to reproduce that.
@@ -125,6 +130,12 @@ def main():
             cases.append(run(lang, v, "cardinal", {}))
         for v in years():
             cases.append(run(lang, v, "year", {}))
+        # Default options too: some converters' to_currency takes no `currency`
+        # argument at all, so only these cases exercise their currency path.
+        for v in currency_values():
+            cases.append(run(lang, v, "currency", {}))
+        for v in currency_values():
+            cases.append(run(lang, v, "currency", {"longval": False}))
         codes = sorted(getattr(conv, "CURRENCY_FORMS", {}) or {})[:6] or ["EUR"]
         for code in codes:
             for v in currency_values():

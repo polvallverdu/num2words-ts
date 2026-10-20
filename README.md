@@ -3,7 +3,7 @@
 Convert numbers to words in 50+ languages: cardinals, ordinals, years and currency amounts.
 
 A faithful TypeScript port of the Python library [num2words](https://github.com/savoirfairelinux/num2words):
-the same words for the same inputs, verified against the original on 56,000+ recorded cases. No
+the same words for the same inputs, verified against the original on 61,000+ recorded cases. No
 dependencies; runs on Node, Bun, Deno, browsers and Cloudflare Workers.
 
 ```sh
@@ -33,7 +33,8 @@ num2words(asFloat(12.5), { to: "currency", currency: "USD" });
 - `to`: `"cardinal"` (default), `"ordinal"`, `"ordinal_num"`, `"year"` or `"currency"`.
 - Converter options are the Python keyword arguments in camelCase, e.g. `{ to: "currency",
   currency: "EUR", cents: false, adjective: true }`, or `{ lang: "ru", gender: "f" }` where
-  the language supports it.
+  the language supports it. An option the converter doesn't take throws a `TypeError`, as in
+  Python (so typos like `curency` don't pass silently).
 
 `value` can be a `number`, a `bigint`, a numeric string, or a `Decimal` (exported).
 
@@ -77,7 +78,8 @@ The language table is upstream's: `am`, `ar`, `az`, `be`, `bn`, `ca`, `ce`, `cs`
   arbitrary-precision integers, float `repr`, `Decimal` rounding, banker's rounding, floor
   division.
 
-Regenerate the corpus after an upstream bump with `bun run fixtures` (needs Python 3).
+After an upstream bump, regenerate the corpus and the option table with `bun run fixtures` and
+`bun run kwargs` (both run the Python library; needs Python 3).
 
 ## Versioning
 

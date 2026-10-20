@@ -6,8 +6,9 @@
 // Ported from num2words: num2words/__init__.py
 
 import type { Num2Word_Base } from "./base.ts";
+import { ACCEPTED_KWARGS } from "./kwargs.ts";
 import { CONVERTER_CLASSES } from "./languages.ts";
-import { type Decimal, NotImplementedError, type PyNum } from "./py.ts";
+import { type Decimal, NotImplementedError, type PyNum, str } from "./py.ts";
 
 export { Num2Word_Base } from "./base.ts";
 export { CONVERTER_CLASSES } from "./languages.ts";
@@ -67,6 +68,10 @@ function toPyNum(number: Exclude<Num2WordsInput, string>): PyNum {
   return number as PyNum;
 }
 
+function snake(key: string): string {
+  return key.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
+}
+
 function methodName(to: string): string {
   return `to${to.replace(/(^|_)([a-z])/g, (_, __, c: string) => c.toUpperCase())}`;
 }
@@ -108,7 +113,20 @@ export function num2words(number: Num2WordsInput, options: Num2WordsOptions = {}
   const method = (converter as unknown as Record<string, (v: PyNum, o: object) => unknown>)[
     methodName(to)
   ];
-  return String((method as (v: PyNum, o: object) => unknown).call(converter, value, kwargs));
+
+  // Python raises TypeError for a keyword argument the method doesn't take.
+  const accepted = ACCEPTED_KWARGS[lang]?.[to];
+  if (method !== undefined && accepted) {
+    for (const key of Object.keys(kwargs)) {
+      if (!accepted.includes(key)) {
+        throw new TypeError(`to_${to}() got an unexpected keyword argument '${snake(key)}'`);
+      }
+    }
+  }
+  // Upstream returns whatever the converter returns (the int itself from
+  // Base.to_ordinal_num, None from some VI paths); this port always returns
+  // its Python str(), e.g. "5" or "None".
+  return str((method as (v: PyNum, o: object) => unknown).call(converter, value, kwargs));
 }
 
 export default num2words;

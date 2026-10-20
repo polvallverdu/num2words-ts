@@ -45,6 +45,24 @@ export class AttributeError extends Error {
   override name = "AttributeError";
 }
 
+export class AssertionError extends Error {
+  override name = "AssertionError";
+}
+
+export class RecursionError extends Error {
+  override name = "RecursionError";
+}
+
+/** Python's `assert cond`: throws AssertionError when `cond` is false. */
+export function pyAssert(cond: boolean): asserts cond {
+  if (!cond) throw new AssertionError();
+}
+
+/** Python's AttributeError for `obj.name` on a `cls` instance that lacks it. */
+export function missingAttribute(cls: string, name: string): AttributeError {
+  return new AttributeError(`'${cls}' object has no attribute '${name}'`);
+}
+
 /** Python `d[key]` on a dict: throws KeyError when missing. */
 export function getItem<V>(d: Readonly<Record<string, V>>, key: string): V {
   if (!Object.hasOwn(d, key)) throw new KeyError(key);

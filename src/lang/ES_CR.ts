@@ -6,10 +6,27 @@
 //
 // Ported from num2words: num2words/lang_ES_CR.py
 
-import { Num2Word_Base } from "../base.ts";
+import type { CurrencyOptions } from "../base.ts";
+import type { PyNum } from "../py.ts";
+import { checkKwargs, Num2Word_ES } from "./ES.ts";
 
-// PORTING: stub. Replace this whole class with the port of num2words/lang_ES_CR.py
-// (keep the exported name Num2Word_ES_CR) and delete the STUB flag.
-export class Num2Word_ES_CR extends Num2Word_Base {
-  static STUB = true;
+export interface CurrencyOptions_ES_CR extends CurrencyOptions {
+  longval?: boolean;
+  old?: boolean;
+}
+
+export class Num2Word_ES_CR extends Num2Word_ES {
+  override toCurrency(val: PyNum | string, options: CurrencyOptions_ES_CR = {}): string {
+    checkKwargs(options, ["longval", "old"], "to_currency");
+    const longval = options.longval ?? true;
+    const result = this.toSplitnum(val as PyNum, {
+      hightxt: "colón/es",
+      lowtxt: "céntimo/s",
+      divisor: 1n,
+      jointxt: "y",
+      longval,
+    });
+    // Handle exception, in spanish is "un euro" and not "uno euro"
+    return result.replaceAll("uno", "un");
+  }
 }
