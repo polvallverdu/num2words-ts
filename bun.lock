@@ -8,7 +8,7 @@
         "@biomejs/biome": "2.5.15",
         "@types/bun": "1.4.3",
         "typescript": "7.0.2",
-        "workerd": "1.20261016.1",
+        "workerd": "1.20261029.1",
       },
     },
   },
@@ -31,15 +31,15 @@
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.5.15", "", { "os": "win32", "cpu": "x64" }, "sha512-yAzh4UqEImV6Hcy0zjUqNfJAsUhoD64FBQCdTG8Md/Z2wQeVP/ZmJ3XRYAs1g8J9fjTFyl2fCtc5FB5til47+g=="],
 
-    "@cloudflare/workerd-darwin-64": ["@cloudflare/workerd-darwin-64@1.20261016.1", "", { "os": "darwin", "cpu": "x64" }, "sha512-Gt6KNlRsMnP2i2yCiy5wOaNiIfQjy6ttXWHYgGqyFKBLJMFdAoYz+roxpeijd9a8eWP0g2bBNWMlQocwzIK80Q=="],
+    "@cloudflare/workerd-darwin-64": ["@cloudflare/workerd-darwin-64@1.20261029.1", "", { "os": "darwin", "cpu": "x64" }, "sha512-AoRWtsMYsg9kXWqZrcnRY9XJudWEDQ1UF3VkgwcKSsTimKxlVJc1oRAePXJPD1XZRxc1TVddqdwG4GsUmG4Yqw=="],
 
-    "@cloudflare/workerd-darwin-arm64": ["@cloudflare/workerd-darwin-arm64@1.20261016.1", "", { "os": "darwin", "cpu": "arm64" }, "sha512-nsOI+cqsZHzYqk995owUJ9J4H+MuU406r2ZquQ9T/rfMvD2IB61b+rgcN9UZqIWkrmzsBGU/45+CmhZq/IPI5w=="],
+    "@cloudflare/workerd-darwin-arm64": ["@cloudflare/workerd-darwin-arm64@1.20261029.1", "", { "os": "darwin", "cpu": "arm64" }, "sha512-eRpXtFpRDe6Xw/bgG6kJgwptwY40/dFTsiCRbafhliw0U8pcOsAyDHcyeB20CQRTTvMtPIajmAm2TuC7jpZUVw=="],
 
-    "@cloudflare/workerd-linux-64": ["@cloudflare/workerd-linux-64@1.20261016.1", "", { "os": "linux", "cpu": "x64" }, "sha512-ptNntkDYXCzkE1RfsRlSI2yjjtgjr0hOpC7wwaSoZ1s+z0zcHZ8jGcgnvaIP0MO95VjcqAg5T7EUCz2he5usfg=="],
+    "@cloudflare/workerd-linux-64": ["@cloudflare/workerd-linux-64@1.20261029.1", "", { "os": "linux", "cpu": "x64" }, "sha512-HkZx+YRRhsZ9HTZYqR7/Ivyhb52XtSngL5Dn208PyS9x05thTlIVxQiF3f2gRMSMoWqJ6l1EO1qQTnThQfeHKg=="],
 
-    "@cloudflare/workerd-linux-arm64": ["@cloudflare/workerd-linux-arm64@1.20261016.1", "", { "os": "linux", "cpu": "arm64" }, "sha512-rYpqeXnpsaO9KPhn2/4D0NXbjbzWXoAGevVYbSRNHT662tEk4ZI/pSmcZiwWMKbb9GpfXzE3iA9dDF9ktpNNQA=="],
+    "@cloudflare/workerd-linux-arm64": ["@cloudflare/workerd-linux-arm64@1.20261029.1", "", { "os": "linux", "cpu": "arm64" }, "sha512-WDDasht7AH/HtQoomSw/SOjBCm+4JcQQ7tF90Pl+lkavrZVqkF9ytDfZr+oUoDnIVeQzcKKPgtvW2Zniq2uoXw=="],
 
-    "@cloudflare/workerd-windows-64": ["@cloudflare/workerd-windows-64@1.20261016.1", "", { "os": "win32", "cpu": "x64" }, "sha512-mB2y54J4/VBZB+exdiGnB3jRBiGVMCzo1FYJyQjFbK6Ryr38q8yDm4jUcNDBdyR8CsRQPzC3b1ZvGVih56EGZw=="],
+    "@cloudflare/workerd-windows-64": ["@cloudflare/workerd-windows-64@1.20261029.1", "", { "os": "win32", "cpu": "x64" }, "sha512-zCYm2yKPAuO4HihaLZMO3ZtyPkwpYq5m6MJJKXThlZLbOuyP0+pEmm9j4TxofCNk9Chk0js/kimzFHJBXl5fRA=="],
 
     "@types/bun": ["@types/bun@1.4.3", "", { "dependencies": { "bun-types": "1.4.3" } }, "sha512-N67Pqy8JXbAY/j0tNraS3V5mubGvc6rrrNDmDCtZLlFzccbUJPDb0tvgUBC5q4m8ybkP93Jcn1QB+RYQ6PvBhw=="],
 
@@ -91,7 +91,7 @@
 
     "undici-types": ["undici-types@8.12.3", "", {}, "sha512-EXE4ydL3S76dFb27UFjNVZHTyv/TLdATj/KUe29ptdcg6qXL48J2tZ3126E5kICj5jn781OR+XlVH1N6Mz8jbA=="],
 
-    "workerd": ["workerd@1.20261016.1", "", { "optionalDependencies": { "@cloudflare/workerd-darwin-64": "1.20261016.1", "@cloudflare/workerd-darwin-arm64": "1.20261016.1", "@cloudflare/workerd-linux-64": "1.20261016.1", "@cloudflare/workerd-linux-arm64": "1.20261016.1", "@cloudflare/workerd-windows-64": "1.20261016.1" }, "bin": { "workerd": "bin/workerd" } }, "sha512-nrjKbX+xjtjkzJaRfx0ykLE0IzRU2vw/O+iaYkyGTyFvioA235iDpxrIMFzKUnf/AHJdjnviHK+BNslEmooJbA=="],
+    "workerd": ["workerd@1.20261029.1", "", { "optionalDependencies": { "@cloudflare/workerd-darwin-64": "1.20261029.1", "@cloudflare/workerd-darwin-arm64": "1.20261029.1", "@cloudflare/workerd-linux-64": "1.20261029.1", "@cloudflare/workerd-linux-arm64": "1.20261029.1", "@cloudflare/workerd-windows-64": "1.20261029.1" }, "bin": { "workerd": "bin/workerd" } }, "sha512-jUXyOfINTtvsZTApFnOcE/SVz2TKIOPJfQPrTbODd0SnhCRGF+FAiGuJn66Legp/0P4/4cBTiGl8eTqBNtUYKQ=="],
 
     "@types/node/undici-types": ["undici-types@8.9.0", "", {}, "sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg=="],
   }
